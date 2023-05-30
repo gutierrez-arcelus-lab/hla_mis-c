@@ -44,7 +44,7 @@ Code is available at <https://github.com/gutierrez-arcelus-lab/hla_mis-c>
 
 # Results
 
-In @tbl-1 we show the HLA genotypes inferred by HLApers and Kourami. Kourami outputs alleles in "G" groups of alleles that are identical at the exons enconding for the antigen recognition sites, whereas HLApers output consists of single alleles. There is almost complete concordance between the two methods at one-field resolution. The only exception is at HLA-A for sample "Key_75", for which both methods call an A\*02:01, but for the second allele HLApers calls an A\*03 whereas Kourami calls another A\*02. We visually inspected the read alignments at HLA-A and confirmed that many reads are compatible with an A\*03 and incompatible with both alleles being of the type A\*02.
+In @tbl-1 we show the HLA genotypes inferred by HLApers and Kourami. Kourami outputs alleles in "G" groups of alleles that are identical at the exons encoding for the antigen recognition sites, whereas HLApers output consists of single alleles. There is almost complete concordance between the two methods at one-field resolution. The only exception is at HLA-A for sample "Key_75", for which both methods call an A\*02:01, but for the second allele HLApers calls an A\*03 whereas Kourami calls another A\*02. We visually inspected the read alignments at HLA-A and confirmed that many reads are compatible with an A\*03 and incompatible with both alleles being of the type A\*02.
 
 ```{r}
 #| echo: false
