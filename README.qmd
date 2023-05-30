@@ -1,0 +1,63 @@
+---
+title: "In-silico HLA typing from RNA-seq data"
+authors:
+  - name: Vitor R. C. Aguiar
+    affiliations:
+      - ref: aff1
+      - ref: aff2
+  - name: Maria Gutierrez-Arcelus
+    affiliations:
+      - ref: aff1
+      - ref: aff2
+affiliations:
+  - id: aff1
+    name: Division of Immunology, Boston Children’s Hospital, Harvard Medical School, Boston, MA, USA
+  - id: aff2
+    name: Broad Institute of MIT and Harvard, Cambridge, MA, USA
+
+filters:
+  - authors-block
+
+format: pdf
+bibliography: misc.bib
+csl: nature.csl
+---
+
+
+# Methods
+
+### RNA-seq data processing
+
+We used trim_galore (<https://github.com/FelixKrueger/TrimGalore>) to perform adapter and quality trimming on the RNA-seq reads. We then aligned reads to the human reference genome GRCh38 with STAR @Dobin2012.
+
+### HLA typing
+
+In order to call HLA alleles from the RNA-seq data, we used two independent approaches: (1) HLApers @Aguiar2019, which integrates STAR @Dobin2012 and Salmon @Patro2017 to map reads to HLA allele sequences and infer the most likely HLA genotypes; and (2) Kourami @Lee2018, a graph-guided approach to assemble HLA allele sequences.
+
+We used HLApers v1.2_dev with HLA reference sequences from the IPD-IMGT/HLA database @Robinson2019 v3.52.0. We performed read extraction from STAR's BAM files with `HLApers bam2fq` in order to extract unmapped reads and reads mapping to the MHC region, which we used as input for `HLApers genotype` to infer HLA types. 
+
+We used Kourami @Lee2018 v0.9.6 with its built-in HLA database based on IPD-IMGT/HLA @Robinson2019 v3.24.0. As a first step, we used hla-mapper @Castelli2018 v4.3 to correct for mapping bias at HLA genes in the BAM files from STAR. Then, we extracted reads mapped to HLA genes with the script `alignAndExtract_hs38.sh`, and ran Kourami using as input the reads realigned to its built-in HLA panel. 
+
+### Code availability
+
+Code is available at <https://github.com/gutierrez-arcelus-lab/hla_mis-c>
+
+# Results
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+
+read.csv("./results.csv") |>
+    mutate_at(vars(allele_hlapers, allele_kourami), ~sub("\\*", "\\\\*", .)) |>
+    mutate_at(vars(locus), ~paste0("HLA-", .)) |>
+    knitr::kable()
+
+```
+
+# References
+
+
