@@ -29,11 +29,11 @@ HLADB=${SLURM_SUBMIT_DIR}/hladb
 BAM=${SLURM_SUBMIT_DIR}/mapping/${SAMPLEID}_Aligned.sortedByCoord.out.bam
 OUT=${SLURM_SUBMIT_DIR}/genotype_calls/hlapers/${SAMPLEID}
 
-#$HLAPERS bam2fq \
-#    -b $BAM \
-#    -m ${HLADB}/mhc_coords.txt \
-#    -o $OUT
-#
+$HLAPERS bam2fq \
+    -b $BAM \
+    -m ${HLADB}/mhc_coords.txt \
+    -o $OUT
+
 ##### Genotyping
 INDEX=${SLURM_SUBMIT_DIR}/HLAINDEX
 TRANSC=${HLADB}/transcripts_MHC_HLAsupp.fa
